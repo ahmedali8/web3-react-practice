@@ -4,9 +4,10 @@ import {
   NoEthereumProviderError,
   UserRejectedRequestError as UserRejectedRequestErrorInjected,
 } from '@web3-react/injected-connector';
-import { injected, network } from './connectors';
-import { useEagerConnect, useInactiveListener } from './hooks';
+import { injected, network } from '../connectors';
+import { useEagerConnect, useInactiveListener } from '../hooks';
 import { formatEther } from '@ethersproject/units';
+import { Spinner } from './Spinner';
 
 const connectorsByName = {
   Injected: injected,
@@ -232,11 +233,10 @@ export default function MyComponent() {
                 }}
               >
                 {activating && (
-                  <div>hello</div>
-                  // <Spinner
-                  //   color={'black'}
-                  //   style={{ height: '25%', marginLeft: '-1rem' }}
-                  // />
+                  <Spinner
+                    color={'black'}
+                    style={{ height: '25%', marginLeft: '-1rem' }}
+                  />
                 )}
                 {active && connected && (
                   <span role="img" aria-label="check">

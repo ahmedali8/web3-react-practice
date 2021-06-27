@@ -6,8 +6,7 @@ import {
   UnsupportedChainIdError,
 } from '@web3-react/core';
 import { injected, network } from './connectors';
-
-import MyComponent from './MyComponent';
+import MyComponent from './components/MyComponent';
 
 export default function App() {
   console.log('useWeb3React > ', useWeb3React());
