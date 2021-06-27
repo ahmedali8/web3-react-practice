@@ -1,6 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { injected } from './connectors';
+import { getContract } from './utils';
+
+export const useContract = (address, ABI, withSignerIfPossible) => {
+  const { library, account, chainId } = useWeb3React();
+
+  return useMemo(() => {
+    // !!library ? getContract(address, ABI, library, account) : undefined
+    if (!address || !ABI || !library) return null;
+    try {
+      return getContract(
+        address,
+        ABI,
+        library,
+        withSignerIfPossible && account ? account : undefined
+      );
+    } catch (error) {
+      console.error('Failed to get contract', error);
+      return null;
+    }
+  }, [library, account, chainId, address, ABI, withSignerIfPossible]);
+};
 
 export function useEagerConnect() {
   const { activate, active } = useWeb3React();

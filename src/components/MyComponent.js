@@ -5,9 +5,12 @@ import {
   UserRejectedRequestError as UserRejectedRequestErrorInjected,
 } from '@web3-react/injected-connector';
 import { injected, network } from '../connectors';
-import { useEagerConnect, useInactiveListener } from '../hooks';
+import { useContract, useEagerConnect, useInactiveListener } from '../hooks';
 import { formatEther } from '@ethersproject/units';
 import { Spinner } from './Spinner';
+
+import { contractAddress, ABI } from '../data';
+import { fromWei } from '../utils';
 
 const connectorsByName = {
   Injected: injected,
@@ -43,6 +46,9 @@ export default function MyComponent() {
     active,
     error,
   } = context;
+
+  const contract = useContract(contractAddress, ABI, true);
+  console.log('contract > ', contract);
 
   // handle logic to recognize the connector currently being activated
   const [activatingConnector, setActivatingConnector] = useState();
@@ -121,6 +127,13 @@ export default function MyComponent() {
       };
     }
   }, [library, account, chainId]);
+
+  useEffect(async () => {
+    if (contract) {
+      const apy = await contract.apy();
+      console.log('apy > ', fromWei(apy));
+    }
+  }, [contract]);
 
   return (
     <div style={{ padding: '1rem' }}>
