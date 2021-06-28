@@ -35,6 +35,7 @@ export default function MyComponent() {
   const context = useWeb3React();
   const {
     activate,
+    // eslint-disable-next-line
     setError,
     deactivate,
 
@@ -128,12 +129,18 @@ export default function MyComponent() {
     }
   }, [library, account, chainId]);
 
+  // eslint-disable-next-line
   useEffect(async () => {
     if (contract) {
       const apy = await contract.apy();
       console.log('apy > ', fromWei(apy));
     }
   }, [contract]);
+
+  // on page load, do nothing until we've tried to connect to the injected connector
+  if (!triedEager) {
+    return null;
+  }
 
   return (
     <div style={{ padding: '1rem' }}>
@@ -214,7 +221,7 @@ export default function MyComponent() {
             !triedEager ||
             !!activatingConnector ||
             active ||
-            (!!error && error?.message != 'The user rejected the request.');
+            (!!error && error?.message !== 'The user rejected the request.');
 
           return (
             <button

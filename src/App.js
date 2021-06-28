@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  Web3ReactProvider,
+  // Web3ReactProvider,
   useWeb3React,
-  createWeb3ReactRoot,
-  UnsupportedChainIdError,
+  // createWeb3ReactRoot,
+  // UnsupportedChainIdError,
 } from '@web3-react/core';
 import { injected, network } from './connectors';
 import MyComponent from './components/MyComponent';

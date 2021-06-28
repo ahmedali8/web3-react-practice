@@ -20,6 +20,7 @@ export const useContract = (address, ABI, withSignerIfPossible) => {
       console.error('Failed to get contract', error);
       return null;
     }
+    // eslint-disable-next-line
   }, [library, account, chainId, address, ABI, withSignerIfPossible]);
 };
 
